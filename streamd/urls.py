@@ -16,11 +16,6 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path, include
 
-base_patterns = [
-    path("admin/", admin.site.urls),
-]
-
-# I hosted this on a subdirectory "streamd" on my server, I needed this so the paths are aligned correctly
 urlpatterns = [
-    path("streamd/", include(base_patterns)),
+    path("admin/", admin.site.urls),
 ]
