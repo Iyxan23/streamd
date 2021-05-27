@@ -1,6 +1,6 @@
 from django.apps import AppConfig
 
 
-class StreamdConfig(AppConfig):
+class StreamdappConfig(AppConfig):
     default_auto_field = 'django.db.models.BigAutoField'
-    name = 'streamd'
+    name = 'streamdapp'
