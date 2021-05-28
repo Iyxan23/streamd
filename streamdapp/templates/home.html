@@ -1,30 +1,29 @@
+{% extends 'base.html' %}
 {% load static %}
-<!DOCTYPE html>
-<html lang="en">
-    <head>
-        <link type="text/css" rel="stylesheet" href="{% static 'streamd/css/home.css' %}"/>
-        <meta charset="UTF-8">
-        <meta http-equiv="X-UA-Compatible" content="IE=edge">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    </head>
-    <body>
-        <div id="header">
-            <h1>streamd</h1>
-            <pre id="subname">stream dock</pre>
-            <div>A simple streaming platform built with django, uwsgi, nginx and rtmp made for fun</div>
-            <div class="line"/>
+
+{% block head %}
+<link type="text/css" rel="stylesheet" href="{% static 'streamd/css/home.css' %}"/>
+{% endblock %}
+
+{% block title %}streamd - Home{% endblock %}
+
+{% block content %}
+<div id="header">
+    <h1>streamd</h1>
+    <pre id="subname">stream dock</pre>
+    <div>A simple streaming platform built with django, uwsgi, nginx and rtmp made for fun</div>
+    <div class="line"/>
+</div>
+<div id="body">
+    <h2>Streams</h2>
+    <!-- TODO: IMPLEMENT THIS -->
+    <div class="stream-item">
+        <img class="preview" src="https://picsum.photos/1366/768" height="auto" width="auto"/>
+        <div class="content">
+            <div class="title">Hello title</div>
+            <div class="username">Username</div>
+            <div class="description">Description</div>
         </div>
-        <div id="body">
-            <h2>Streams</h2>
-            <!-- TODO: IMPLEMENT THIS -->
-            <div class="stream-item">
-                <img class="preview" src="https://picsum.photos/1366/768" height="auto" width="auto"/>
-                <div class="content">
-                    <div class="title">Hello title</div>
-                    <div class="username">Username</div>
-                    <div class="description">Description</div>
-                </div>
-            </div>
-        </div>
-    </body>
-</html>
+    </div>
+</div>
+{% endblock %}
