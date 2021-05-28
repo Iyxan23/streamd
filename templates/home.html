@@ -28,7 +28,7 @@
     <div class="stream-item">
         <img class="preview" src="https://picsum.photos/1366/768" height="auto" width="auto"/>
         <div class="content">
-            <div class="title">{{ stream.stream_name }}</div>
+            <a href="{% url 'watch' stream.id %}"><div class="title">{{ stream.stream_name }}</div></a>
             <div class="username">{{ stream.user }}</div>
             <div class="description">{{ stream.description }}</div>
         </div>

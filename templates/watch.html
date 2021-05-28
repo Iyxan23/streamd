@@ -1,0 +1,18 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block head %}
+<link type="text/css" rel="stylesheet" href="{% static 'streamd/css/watch.css' %}"/>
+{% endblock %}
+
+{% block title %}{{ stream.stream_name }}{% endblock %}
+
+{% block content %}
+<div id="body">
+    <video controls>
+        <source src="{{ stream.stream_url }}" type="application/x-mpegURL">
+    </video>
+    <h3>{{ stream.stream_name }}</h3>
+    <p>{{ stream.description }}</p>
+</div>
+{% endblock %}
