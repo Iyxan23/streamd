@@ -3,15 +3,28 @@
 
 {% block head %}
 <link type="text/css" rel="stylesheet" href="{% static 'streamd/css/watch.css' %}"/>
+<script src="//cdn.jsdelivr.net/npm/hls.js@latest" defer></script>
+<script defer>
+if (Hls.isSupported()) {
+    var video = document.getElementById('video');
+    var hls = new Hls();
+
+    hls.attachMedia(video);
+    hls.on(Hls.Events.MEDIA_ATTACHED, function () {
+        hls.loadSource('/live/{{ stream.hls_key }}/index.m3u8');
+        hls.on(Hls.Events.MANIFEST_PARSED, function (event, data) {
+            video.play();
+        });
+    });
+}
+</script>
 {% endblock %}
 
 {% block title %}{{ stream.stream_name }}{% endblock %}
 
 {% block content %}
 <div id="body">
-    <video controls>
-        <source src="{{ stream.stream_url }}" type="application/x-mpegURL">
-    </video>
+    <video id="video" controls></video>
     <h3>{{ stream.stream_name }}</h3>
     <p>{{ stream.description }}</p>
 </div>
