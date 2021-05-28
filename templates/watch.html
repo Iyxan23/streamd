@@ -20,12 +20,12 @@ if (Hls.isSupported()) {
 </script>
 {% endblock %}
 
-{% block title %}{{ stream.stream_name }}{% endblock %}
+{% block title %}{{ stream.stream_name|escape }}{% endblock %}
 
 {% block content %}
 <div id="body">
     <video id="video" controls></video>
-    <h3>{{ stream.stream_name }}</h3>
-    <p>{{ stream.description }}</p>
+    <h3>{{ stream.stream_name|escape }}</h3>
+    <p>{{ stream.description|escape }}</p>
 </div>
 {% endblock %}

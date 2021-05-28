@@ -3,7 +3,7 @@
 {% block head %}
 {% endblock %}
 
-{% block title %}Streaming {{ stream.stream_name }}{% endblock %}
+{% block title %}Streaming {{ stream.stream_name|escape }}{% endblock %}
 
 {% block content %}
 todo

@@ -11,7 +11,7 @@
 <div id="header">
     {% if user.is_authenticated %}
         <div id="account">
-            Logged in as <a href="{% url 'account:show_me' %}">{{ user.username }}</a>, <a href="{% url 'logout' %}">Logout</a>
+            Logged in as <a href="{% url 'account:show_me' %}">{{ user.username|escape }}</a>, <a href="{% url 'logout' %}">Logout</a>
         </div>
     {% else %}
         <a href="{% url 'login' %}">Login</a>
@@ -28,9 +28,9 @@
     <div class="stream-item">
         <img class="preview" src="https://picsum.photos/1366/768" height="auto" width="auto"/>
         <div class="content">
-            <a href="{% url 'streamdapp:watch' stream.id %}"><div class="title">{{ stream.stream_name }}</div></a>
-            <div class="username">{{ stream.user }}</div>
-            <div class="description">{{ stream.description }}</div>
+            <a href="{% url 'streamdapp:watch' stream.id %}"><div class="title">{{ stream.stream_name|escape }}</div></a>
+            <div class="username">{{ stream.user|escape }}</div>
+            <div class="description">{{ stream.description|escape }}</div>
         </div>
     </div>
     {% endfor %}
