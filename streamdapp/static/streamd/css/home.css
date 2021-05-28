@@ -36,6 +36,11 @@ body {
     margin-bottom: .5rem;
 }
 
+#account {
+    position: absolute;
+    right: 1rem;
+}
+
 .stream-item {
     display: flex;
     height: 25vh;

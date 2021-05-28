@@ -9,6 +9,13 @@
 
 {% block content %}
 <div id="header">
+    {% if user.is_authenticated %}
+        <div id="account">
+            Logged in as {{ user.username }}, <a href="{% url 'logout' %}">Logout</a>
+        </div>
+    {% else %}
+        <a href="{% url 'login' %}">Login</a>
+    {% endif %}
     <h1>streamd</h1>
     <pre id="subname">stream dock</pre>
     <div>A simple streaming platform built with django, uwsgi, nginx and rtmp made for fun</div>
