@@ -8,7 +8,10 @@
 {% block title %}{{ user.username }}{% endblock %}
 
 {% block content %}
-<h2>{{ user.username }}</h2>
-<p>DESCRIPTION</p>
-<small>UserID: {{ user.id }}</small>
+<div id="body">
+    <h2>{{ user.username }}</h2>
+    <button id="start-streaming" href="{% url 'streamdapp:stream' %}">Start Streaming</button>
+    <p>DESCRIPTION</p>
+    <small>UserID: {{ user.id }}</small>
+</div id="body">
 {% endblock %}

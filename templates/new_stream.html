@@ -1,0 +1,13 @@
+{% extends 'base.html' %}
+
+{% block head %}
+{% endblock %}
+
+{% block title %}New Stream{% endblock %}
+
+{% block content %}
+<form action="/stream" method="post">
+    {% csrf_token %}
+    {{ form }}
+</form>
+{% endblock %}

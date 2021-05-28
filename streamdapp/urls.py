@@ -10,6 +10,8 @@ def fake_view(*args, **kwargs):
 app_name = "streamdapp"
 urlpatterns = [
     path("", views.home, name="home"),
+    path("new_stream", views.new_stream, name="new-stream"),
+    path("stream", views.stream, name="stream"),
     path("watch/<int:stream_id>", views.watch, name="watch"),
     path("start_stream", views.start_stream, name="start-stream"),
     path("stop_stream", views.stop_stream, name="stop-stream"),

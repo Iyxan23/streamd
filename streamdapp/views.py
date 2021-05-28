@@ -2,15 +2,46 @@ from django.shortcuts import render, get_object_or_404
 from django.http import Http404, HttpResponse, HttpResponseForbidden
 from django.views.decorators.http import require_POST
 from django.views.decorators.csrf import csrf_exempt
+from django.contrib.auth.decorators import login_required
 from django.utils.crypto import get_random_string
+from django import forms
 
 from .models import Stream
 
 # Create your views here.
+# The homepage
 def home(request):
     streams = Stream.objects.all()
     return render(request, "home.html", {"streams": streams})
 
+@login_required(login_url="/login")
+def new_stream(request):
+    # TODO: Check if the current user is already streaming
+    form = NewStreamForm()
+    return render(request, "new_stream.html", {"form": form})
+
+# A class that stores a new stream form
+class NewStreamForm(forms.Form):
+    stream_name = forms.CharField(label="Stream Name", max_length=100)
+    description = forms.CharField(label="Description", max_length=1000)
+
+@require_POST
+@login_required(login_url="/login")
+def stream(request):
+    stream_form = NewStreamForm(request.POST)
+
+    if stream_form.is_valid():
+        stream_name = stream_form.cleaned_data["stream_name"]
+        description = stream_form.cleaned_data["description"]
+
+        stream = Stream(stream_name=stream_name, user=request.user, description=description, stream_key=get_random_string(30), hls_key=get_random_string(30))
+        stream.save()
+
+        return render(request, "stream.html", {"stream": stream})
+    else:
+        return redirect("/new_stream")
+
+# Watch a stream
 def watch(request, stream_id=None):
     if stream_id is None:
         raise Http404()
