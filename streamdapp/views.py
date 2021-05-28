@@ -1,5 +1,7 @@
 from django.shortcuts import render
+from .models import Stream
 
 # Create your views here.
 def home(request):
-    return render(request, "home.html")
+    streams = Stream.objects.all()
+    return render(request, "home.html", {"streams": streams})
