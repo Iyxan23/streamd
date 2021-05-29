@@ -2,7 +2,7 @@
 {% load static %}
 
 {% block head %}
-<link type="text/css" rel="stylesheet" href="{% static 'account/css/showuser.css' %}"/>
+<link href="{% static 'account/css/showuser.css' %}" rel="stylesheet" type="text/css"/>
 {% endblock %}
 
 {% block title %}{{ user.username|escape }}{% endblock %}
@@ -10,7 +10,7 @@
 {% block content %}
 <div id="body">
     <h2>{{ user.username|escape }}</h2>
-    <button id="start-streaming" href="{% url 'streamdapp:stream' %}">Start Streaming</button>
+    <button href="{% url 'streamdapp:stream' %}" id="start-streaming">Start Streaming</button>
     <p>DESCRIPTION</p>
     <small>UserID: {{ user.id }}</small>
 </div id="body">

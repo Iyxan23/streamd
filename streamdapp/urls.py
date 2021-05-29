@@ -2,10 +2,12 @@ from django.urls import path
 
 from . import views
 
+
 def fake_view(*args, **kwargs):
     # This view shouldn't be called, because the url 
     # we "connect" to this view will be served by nginx rtmp module
     raise Exception("This should never be called!")
+
 
 app_name = "streamdapp"
 urlpatterns = [

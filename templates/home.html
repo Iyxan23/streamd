@@ -2,7 +2,7 @@
 {% load static %}
 
 {% block head %}
-<link type="text/css" rel="stylesheet" href="{% static 'streamd/css/home.css' %}"/>
+<link href="{% static 'streamd/css/home.css' %}" rel="stylesheet" type="text/css"/>
 {% endblock %}
 
 {% block title %}streamd - Home{% endblock %}
@@ -10,25 +10,27 @@
 {% block content %}
 <div id="header">
     {% if user.is_authenticated %}
-        <div id="account">
-            Logged in as <a href="{% url 'account:show_me' %}">{{ user.username|escape }}</a>, <a href="{% url 'logout' %}">Logout</a>
-        </div>
+    <div id="account">
+        Logged in as <a href="{% url 'account:show_me' %}">{{ user.username|escape }}</a>, <a href="{% url 'logout' %}">Logout</a>
+    </div>
     {% else %}
-        <a href="{% url 'login' %}">Login</a>
+    <a href="{% url 'login' %}">Login</a>
     {% endif %}
     <h1>streamd</h1>
     <pre id="subname">stream dock</pre>
     <div>A simple streaming platform built with django, uwsgi, nginx and rtmp made for fun</div>
-    <div class="line"/>
+    <div class="line"></div>
 </div>
 <div id="body">
     <h2>Streams</h2>
     <!-- TODO: IMPLEMENT THIS -->
     {% for stream in streams %}
     <div class="stream-item">
-        <img class="preview" src="https://picsum.photos/1366/768" height="auto" width="auto"/>
+        <img class="preview" height="auto" src="https://picsum.photos/1366/768" width="auto"/>
         <div class="content">
-            <a href="{% url 'streamdapp:watch' stream.id %}"><div class="title">{{ stream.stream_name|escape }}</div></a>
+            <a href="{% url 'streamdapp:watch' stream.id %}">
+                <div class="title">{{ stream.stream_name|escape }}</div>
+            </a>
             <div class="username">{{ stream.user|escape }}</div>
             <div class="description">{{ stream.description|escape }}</div>
         </div>

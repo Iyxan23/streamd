@@ -1,9 +1,9 @@
-from django.db import models
 from django.contrib.auth.models import User
+from django.db import models
+
 
 # Create your models here.
 class Stream(models.Model):
-
     # The stream title
     stream_name = models.CharField("stream name", max_length=100)
 

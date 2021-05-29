@@ -2,8 +2,8 @@
 {% load static %}
 
 {% block head %}
-<link type="text/css" rel="stylesheet" href="{% static 'streamd/css/watch.css' %}"/>
-<script src="//cdn.jsdelivr.net/npm/hls.js@latest" defer></script>
+<link href="{% static 'streamd/css/watch.css' %}" rel="stylesheet" type="text/css"/>
+<script defer src="//cdn.jsdelivr.net/npm/hls.js@latest"></script>
 <script defer>
 if (Hls.isSupported()) {
     var video = document.getElementById('video');
@@ -17,6 +17,7 @@ if (Hls.isSupported()) {
         });
     });
 }
+
 </script>
 {% endblock %}
 
@@ -24,7 +25,7 @@ if (Hls.isSupported()) {
 
 {% block content %}
 <div id="body">
-    <video id="video" controls></video>
+    <video controls id="video"></video>
     <h3>{{ stream.stream_name|escape }}</h3>
     <p>{{ stream.description|escape }}</p>
 </div>
