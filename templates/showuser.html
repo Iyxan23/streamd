@@ -10,7 +10,7 @@
 {% block content %}
 <div id="body">
     <h2>{{ user.username|escape }}</h2>
-    <button href="{% url 'streamdapp:stream' %}" id="start-streaming">Start Streaming</button>
+    <a href="{% url 'streamdapp:new-stream' %}" id="start-streaming">Start Streaming</a>
     <p>DESCRIPTION</p>
     <small>UserID: {{ user.id }}</small>
 </div id="body">
