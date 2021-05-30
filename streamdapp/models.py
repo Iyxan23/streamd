@@ -1,14 +1,17 @@
-from django.contrib.auth.models import User
+from django.contrib.auth.models import AbstractUser
+from django.conf import settings
 from django.db import models
 
 
 # Create your models here.
+
+# Model that stores stream information
 class Stream(models.Model):
     # The stream title
     stream_name = models.CharField("stream name", max_length=100)
 
     # The author of this stream
-    user = models.ForeignKey(User, verbose_name="author", on_delete=models.CASCADE, default=1)
+    user = models.ForeignKey(settings.AUTH_USER_MODEL, verbose_name="author", on_delete=models.CASCADE, default=1)
 
     # The stream description
     description = models.TextField("description", max_length=1000)
