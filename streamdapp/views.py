@@ -18,9 +18,15 @@ def home(request):
 
 @login_required(login_url="/login")
 def new_stream(request):
-    # TODO: Check if the current user is already streaming
-    form = NewStreamForm()
-    return render(request, "new_stream.html", {"form": form})
+    # Check if the current user is already streaming
+    try:
+        stream = Stream.objects.get(user=request.user)
+
+        # Redirect to the stream panel
+        return redirect("stream")
+    except Stream.DoesNotExist:
+        form = NewStreamForm()
+        return render(request, "new_stream.html", {"form": form})
 
 
 # A class that stores a new stream form
@@ -29,22 +35,33 @@ class NewStreamForm(forms.Form):
     description = forms.CharField(label="Description", max_length=1000)
 
 
-@require_POST
 @login_required(login_url="/login")
 def stream(request):
-    stream_form = NewStreamForm(request.POST)
+    if request.type != "POST": # GET + etc
+        # Check if the user is streaming
+        try:
+            # The user is streaming, display the "stream panel"
+            stream = Stream.objects.get(user=request.user)
+            return render(request, "stream.html", {"stream": stream})
+        except Stream.DoesNotExist:
+            # The user is not streaming, redirect to new-stream
+            pass
 
-    if stream_form.is_valid():
-        stream_name = stream_form.cleaned_data["stream_name"]
-        description = stream_form.cleaned_data["description"]
+    else: # POST
+        # The user came from new-stream, and they're making a stream
+        stream_form = NewStreamForm(request.POST)
 
-        stream = Stream(stream_name=stream_name, user=request.user, description=description,
-                        stream_key=get_random_string(30), hls_key="") # hls_key should be empty when the stream isn't started
-        stream.save()
+        if stream_form.is_valid():
+            stream_name = stream_form.cleaned_data["stream_name"]
+            description = stream_form.cleaned_data["description"]
 
-        return render(request, "stream.html", {"stream": stream})
-    else:
-        return redirect("new-stream")
+            stream = Stream(stream_name=stream_name, user=request.user, description=description,
+                            stream_key=get_random_string(30), hls_key="") # hls_key should be empty when the stream isn't started
+            stream.save()
+
+            return render(request, "stream.html", {"stream": stream})
+
+    return redirect("new-stream")
 
 
 # Watch a stream
