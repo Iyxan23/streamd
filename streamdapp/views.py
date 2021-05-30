@@ -1,6 +1,6 @@
 from django import forms
 from django.contrib.auth.decorators import login_required
-from django.http import Http404, HttpResponse, HttpResponseForbidden
+from django.http import Http404, HttpResponse, HttpResponseRedirect, HttpResponseForbidden
 from django.shortcuts import render, get_object_or_404, redirect
 from django.utils.crypto import get_random_string
 from django.views.decorators.csrf import csrf_exempt
@@ -44,7 +44,7 @@ def stream(request):
 
         return render(request, "stream.html", {"stream": stream})
     else:
-        return redirect("/new_stream")
+        return redirect("new-stream")
 
 
 # Watch a stream
@@ -84,7 +84,7 @@ def start_stream(request):
     # Now, here comes the hidinng stream key part
     # We will redirect nginx's rtmp module to stream the hls stream into the url we redirected it into
     # So the stream key doesn't get exposed
-    return redirect(hls_key)
+    return HttpResponseRedirect(hls_key)
 
 
 @require_POST
