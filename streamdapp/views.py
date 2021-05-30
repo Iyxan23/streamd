@@ -37,7 +37,7 @@ class NewStreamForm(forms.Form):
 
 @login_required(login_url="/login")
 def stream(request):
-    if request.type != "POST": # GET + etc
+    if request.method != "POST": # GET + etc
         # Check if the user is streaming
         try:
             # The user is streaming, display the "stream panel"
