@@ -33,8 +33,8 @@ function copy() {
     {% else %}
     Status: <div id="status" style="color: red;">Not Streaming</div>
     {% endif %}
-    (Streaming status isn't implemened yet)
-    Streaming URL: http://{{ request.META.HTTP_HOST }}/app<br/>
+    (Streaming status isn't implemened yet)<br/>
+    Streaming URL: rtmp://{{ request.META.HTTP_HOST }}/app<br/>
     <label>Stream Key:</label>
     <input type="password" value="{{ stream.stream_key }}" id="stream_key" readonly>
     <button onclick="copy()">Copy Stream Key</button>
