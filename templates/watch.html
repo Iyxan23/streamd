@@ -3,30 +3,23 @@
 
 {% block head %}
 <link href="{% static 'streamd/css/watch.css' %}" rel="stylesheet" type="text/css"/>
+<link href="https://vjs.zencdn.net/7.11.4/video-js.css" rel="stylesheet" />
 {% endblock %}
 
 {% block title %}{{ stream.stream_name|escape }}{% endblock %}
 
 {% block content %}
-<div id="body">
-    <video controls id="video"></video>
-    <h3>{{ stream.stream_name|escape }}</h3>
-    <p>{{ stream.description|escape }}</p>
-</div>
-<script src="//cdn.jsdelivr.net/npm/hls.js@latest"></script>
+<video-js id=livestream width=100% class="vjs-default-skin" controls>
+  <source
+     src="/live/{{ stream.hls_key }}/index.m3u8"
+     type="application/x-mpegURL">
+</video-js>
+<h3>{{ stream.stream_name|escape }}</h3>
+<p>{{ stream.description|escape }}</p>
+<script src="https://vjs.zencdn.net/7.11.4/video.min.js"></script>
+<script src="https://unpkg.com/@videojs/http-streaming@2.8.2/dist/videojs-http-streaming.min.js"></script>
 <script>
-if (Hls.isSupported()) {
-    var video = document.getElementById('video');
-    var hls = new Hls();
-
-    hls.attachMedia(video);
-    hls.on(Hls.Events.MEDIA_ATTACHED, function () {
-        hls.loadSource('/live/{{ stream.hls_key }}/index.m3u8');
-        hls.on(Hls.Events.MANIFEST_PARSED, function (event, data) {
-            video.play();
-        });
-    });
-}
+var player = videojs('livestream');
+player.play();
 </script>
-
 {% endblock %}
