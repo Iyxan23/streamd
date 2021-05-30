@@ -39,7 +39,7 @@ def stream(request):
         description = stream_form.cleaned_data["description"]
 
         stream = Stream(stream_name=stream_name, user=request.user, description=description,
-                        stream_key=get_random_string(30), hls_key=get_random_string(30))
+                        stream_key=get_random_string(30), hls_key="") # hls_key should be empty when the stream isn't started
         stream.save()
 
         return render(request, "stream.html", {"stream": stream})
@@ -69,7 +69,7 @@ def start_stream(request):
     stream = get_object_or_404(Stream, stream_key=request.POST["name"])
 
     # Check if the stream is streaming :p
-    if not stream.is_streaming:
+    if stream.is_streaming:
         return HttpResponseForbidden("Already streaming")
 
     # Ok, we're streaming
