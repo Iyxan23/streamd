@@ -1,7 +1,7 @@
 from django import forms
 from django.contrib.auth.decorators import login_required
 from django.http import Http404, HttpResponse, HttpResponseRedirect, HttpResponseForbidden
-from django.shortcuts import render, get_object_or_404, redirect
+from django.shortcuts import render, get_object_or_404
 from django.utils.crypto import get_random_string
 from django.views.decorators.csrf import csrf_exempt
 from django.views.decorators.http import require_POST
@@ -23,11 +23,10 @@ def new_stream(request):
         stream = Stream.objects.get(user=request.user)
 
         # Redirect to the stream panel
-        return redirect("stream")
+        return HttpResponseRedirect("/stream")
     except Stream.DoesNotExist:
         form = NewStreamForm()
         return render(request, "new_stream.html", {"form": form})
-
 
 # A class that stores a new stream form
 class NewStreamForm(forms.Form):
@@ -61,7 +60,7 @@ def stream(request):
 
             return render(request, "stream.html", {"stream": stream})
 
-    return redirect("new-stream")
+    return HttpResponseRedirect("/new_stream")
 
 
 # Watch a stream
